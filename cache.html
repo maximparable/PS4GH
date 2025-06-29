@@ -85,15 +85,17 @@
     </style>
     <script>
         history.replaceState(null,null,'index.html');
-        var load = document.getElementById("load");
         var histlength=history.length;
         history.go(-histlength);
         function DLProgress(e){
+            var load = document.getElementById("load");
             Percent=(Math.round(e.loaded / e.total * 100));
+                msgs.innerHTML="Instalando Cache para usar sin internet, espere ... "+Percent+"%";
             load.setAttribute("src", "loading.gif");
-            msgs.innerHTML="Instalando Cache para usar sin internet, espere ... " + Percent + "%"
+            msgs.innerHTML="" 
         };
         function DisplayCacheProgress(){
+            var load = document.getElementById("load");
             setTimeout(function(){
                 msgs.innerHTML="Cache Instalada.";
                 load.setAttribute("src", "ok.gif");
@@ -115,7 +117,7 @@
             <h1 class="matrix-text" data-text="Miguel Castillo">Miguel Castillo</h1>
         </div>
         <br><br>        
-        <p align="center"><img id="load" src="loading.gif" width="20%" alt="CARGANDO"></p>
+        <p align="center"><img id="load" src="loading.gif" width="40%" alt="CARGANDO"></p>
         <div id='msgs' class='neon-text' style='-webkit-font-feature-settings:"tnum";font-feature-settings:"tnum";'></div>
     </body>
 </html>
