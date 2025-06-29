@@ -3,7 +3,17 @@
     <title>Liberar PS4 9.00 por Miguel Castillo</title>
     <link rel="shortcut icon" href="favicon.ico"></link>
     <style>
-    body{
+root {
+  --colour1: #f1c40f;
+  --colour2: #2c3e50;
+  --speed: 4s;
+  --patternRepeatWidth: 80;
+  --stripeWidth: calc(var(--patternRepeatWidth) * 1px);
+  --fundamentalBase: calc(1px * sqrt(2 * pow(var(--patternRepeatWidth), 2)));
+}
+
+html,
+body {
         background-image: url("host.jpg");
         background-repeat: no-repeat;
         background-size:100%;
@@ -11,8 +21,49 @@
         background-color: rgb(0, 0, 0);
         color:rgb(255, 255, 255);
         font-size:20px;
-        text-align:center;margin:0;overflow:hidden;
+        text-align:center;
+  height: 100%;
+}
+
+@keyframes slide {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: var(--fundamentalBase);
+  }
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .bar {
+    min-height: 100px;
+    border-radius: 10px;
+    width: calc(var(--fundamentalBase) * 4);
+    @media only screen and (max-width: 450px) {
+      width: calc(var(--fundamentalBase) * 3);
     }
+    @media only screen and (max-width: 350px) {
+      width: calc(var(--fundamentalBase) * 2);
+    }
+    box-shadow: 0px 10px 13px -6px rgba(44, 62, 80, 1);
+    background-color: var(--colour2);
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent calc(var(--stripeWidth) / 2),
+      var(--colour1) calc(var(--stripeWidth) / 2),
+      var(--colour1) var(--stripeWidth)
+    );
+
+    animation: slide var(--speed) linear infinite;
+    will-change: background-position;
+  }
+}
+
     .info{
         overflow: hidden;
         position: fixed;
@@ -26,7 +77,7 @@
         
             .neon-text {
                 text-align: center;
-                font-size: 5rem;
+                font-size: 3rem;
                 color: #ffdd00;
                 text-shadow: 0 0 5px #ebeac3, 0 0 10px #c8ff00, 0 0 20px #aaa36b, 0 0 40px #fff195, 0 0 80px #ffae00;
                 animation: glow 1.5s infinite alternate;
@@ -42,7 +93,7 @@
             }         
             .matrix-text {
             color: rgb(255, 225, 0);
-            font-size: 60px;
+            font-size: 50px;
             text-align: center;
             padding-left: 40px;
             margin-left: 40px;
@@ -82,31 +133,25 @@
                     transform: translate(5px, 5px);
                 }
             }
+        
     </style>
     <script>
         history.replaceState(null,null,'index.html');
-        var Aatrox = document.getElementById("load");
         var histlength=history.length;
         history.go(-histlength);
         function DLProgress(e){
             Percent=(Math.round(e.loaded / e.total * 100));
-            load.setAttribute("src", "loading.gif");
             msgs.innerHTML="Instalando Cache para usar sin internet, espere ... " + Percent + "%"
         };
         function DisplayCacheProgress(){
             setTimeout(function(){
                 msgs.innerHTML="Cache Instalada.";
-            load.setAttribute("src", "ok.gif");
             },2000);
             setTimeout(function(){
                 location.reload();
             },3000);
         }
-        window.applicationCache.addEventListener("progress",DLProgress,false);
-        window.applicationCache.oncached=function(e){
-            DisplayCacheProgress();
-        };
-        window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+        window.applicationCache.addEventListener("progress",DLProgress,false);window.applicationCache.oncached=function(e){DisplayCacheProgress();};window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
     </script>
     </head>
     <body style="overflow:hidden">
@@ -115,7 +160,10 @@
             <h1 class="matrix-text" data-text="Miguel Castillo">Miguel Castillo</h1>
         </div>
         <br><br>        
-        <p align="center"><img id="loading" src="" width="20%" alt="CARGANDO"></p>
+        <div class='container'>
+          <div class='bar'>
+          </div>
+        </div>
         <div id=msgs class=neon-text style='-webkit-font-feature-settings:"tnum";font-feature-settings:"tnum";'></div>
     </body>
 </html>
