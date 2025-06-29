@@ -150,7 +150,13 @@ body {
                 location.reload();
             },3000);
         }
-        window.applicationCache.addEventListener("progress",DLProgress,false);window.applicationCache.oncached=function(e){DisplayCacheProgress();};window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+        window.applicationCache.addEventListener("progress",DLProgress,false);
+        window.applicationCache.oncached=function(e){
+            DisplayCacheProgress();
+        };
+        window.applicationCache.onupdateready=function(e){
+            DisplayCacheProgress();
+        };
     </script>
     </head>
     <body style="overflow:hidden">
@@ -163,6 +169,6 @@ body {
           <div class='bar'>
           </div>
         </div>
-        <div id="msgs" class="info" style='-webkit-font-feature-settings:"tnum";font-feature-settings:"tnum";'></div>
+        <div id="msgs" class="info" style='-webkit-font-feature-settings:"tnum"; font-feature-settings:"tnum";'></div>
     </body>
 </html>
